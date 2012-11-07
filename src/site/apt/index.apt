@@ -3,12 +3,12 @@
  ------
  ------
 
-My first Maven Plugin
+JavaScript Templates Precompiler Plugin for Maven
 
- Provides support for using my software with Maven 2.
+Plugin that enables build time precompilation of javascript templates using libraries like Hogan.js
 
 * Goals Overview
 
- All the goals available in My First Maven Plugin can be found on the {{{plugin-info.html}goals page}}.
+ All the goals available in plugin can be found on the {{{plugin-info.html}goals page}}.
 
  []
