@@ -21,7 +21,6 @@ public class Group {
     /**
      * Template type.
      */
-    private String templateTypeString;
     private TemplateType _templateType;
 
     /**

@@ -22,6 +22,14 @@ public class HoganTemplateCompilerImpl extends AbstractTemplateCompiler implemen
     }
 
     @Override
+    public void prepare() {
+        super.prepare();
+
+        loadClasspathScript("pl/kjaklik/maven/jsprecompile/scripts/engine/hogan.js");
+        loadClasspathScript("pl/kjaklik/maven/jsprecompile/scripts/toolkit/hogan-toolkit.js");
+    }
+
+    @Override
     public void compileGroup(Iterable<File> templates, File output) {
         Writer writer = null;
 
@@ -71,14 +79,6 @@ public class HoganTemplateCompilerImpl extends AbstractTemplateCompiler implemen
             devPrecompileFile(templateFile, writer);
             IOUtils.write("\n", writer);
         }
-    }
-
-    @Override
-    public void prepare() {
-        super.prepare();
-
-        loadClasspathScript("pl/kjaklik/maven/jsprecompile/scripts/engine/hogan.js");
-        loadClasspathScript("pl/kjaklik/maven/jsprecompile/scripts/toolkit/hogan-toolkit.js");
     }
 
     private void precompileFile(File file, Writer writer) throws IOException {

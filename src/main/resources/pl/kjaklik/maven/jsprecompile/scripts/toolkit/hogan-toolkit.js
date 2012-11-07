@@ -5,7 +5,7 @@
  */
 
 if(typeof(jsprecompileHoganToolkit) == "undefined") {
-    jsprecompileHoganToolkit = {};
+    var jsprecompileHoganToolkit = {};
 }
 
 jsprecompileHoganToolkit.generate = function(namespace, classname) {

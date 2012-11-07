@@ -6,6 +6,7 @@ import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import pl.kjaklik.maven.jsprecompile.compiler.TemplateCompiler;
+import pl.kjaklik.maven.jsprecompile.compiler.handlebars.HandlebarsTemplateCompilerImpl;
 import pl.kjaklik.maven.jsprecompile.compiler.hogan.HoganTemplateCompilerImpl;
 
 import java.io.File;
@@ -25,6 +26,7 @@ public class PrecompileMojo extends AbstractMojo implements Mojo {
     static {
         compilers = new HashMap<TemplateType, TemplateCompiler>();
         compilers.put(TemplateType.HoganJS, new HoganTemplateCompilerImpl());
+        compilers.put(TemplateType.HandlebarsJS, new HandlebarsTemplateCompilerImpl());
     }
 
     /**
@@ -68,7 +70,7 @@ public class PrecompileMojo extends AbstractMojo implements Mojo {
             getLog().info("jsprecompile:precompile skipped!");
         }
         if(force) {
-            getLog().info("Compilation will be forces even if groups are up to date");
+            getLog().info("Compilation will be forced even if groups are up to date");
         }
         if(devMode) {
             getLog().info("Compilation in devMode enabled");

@@ -5,7 +5,8 @@ package pl.kjaklik.maven.jsprecompile;
  *         created: 19.10.12 10:40
  */
 public enum TemplateType {
-    HoganJS("HoganTemplates", "template");
+    HoganJS("HoganTemplates", "template"),
+    HandlebarsJS("Handlebars.templates", "template");
 
     public static final TemplateType DEFAULT_TYPE = HoganJS;
 

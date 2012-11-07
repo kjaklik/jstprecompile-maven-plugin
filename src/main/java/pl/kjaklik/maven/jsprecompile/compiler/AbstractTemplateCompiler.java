@@ -67,6 +67,16 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
     }
 
     @Override
+    public void devCompileGroup(Iterable<File> templates, File output) {
+        throw new IllegalStateException("DevMode not supported!");
+    }
+
+    @Override
+    public void devCompileGroup(Iterable<File> templates, Writer output) throws IOException {
+        throw new IllegalStateException("DevMode not supported!");
+    }
+
+    @Override
     public File getDevModeBaseDir() {
         return devModeBaseDir;
     }
