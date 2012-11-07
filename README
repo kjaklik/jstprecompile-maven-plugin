@@ -1,0 +1,4 @@
+JavaScript Templates Precompiler Plugin for Maven
+
+Plugin that enables build time precompilation of javascript templates using libraries like Hogan.js
+This file was modified by IntelliJ IDEA 11.1.4 for binding GitHub repository
