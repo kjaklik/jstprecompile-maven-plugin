@@ -1,4 +1,4 @@
-package pl.kjaklik.maven.jsprecompile;
+package pl.kjaklik.maven.jstprecompile;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -22,6 +22,11 @@ public class Group {
      * Template type.
      */
     private TemplateType _templateType;
+
+    /**
+     * JavaScript literal object containing configuration options for compiler.
+     */
+    private String options;
 
     /**
      * Javascript namespace for generated templates.
@@ -80,6 +85,13 @@ public class Group {
 
     public boolean isRemoveSources() {
         return removeSources;
+    }
+
+    public String getOptions() {
+        if(StringUtils.isBlank(options)) {
+            return "{}";
+        }
+        return options;
     }
 
     public List<File> getSources(File basedir) {

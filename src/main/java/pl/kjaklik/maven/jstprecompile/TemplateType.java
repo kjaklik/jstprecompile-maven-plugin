@@ -1,4 +1,4 @@
-package pl.kjaklik.maven.jsprecompile;
+package pl.kjaklik.maven.jstprecompile;
 
 /**
  * @author Krzysiek Jaklik

@@ -1,4 +1,4 @@
-package pl.kjaklik.maven.jsprecompile.compiler;
+package pl.kjaklik.maven.jstprecompile.compiler;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -21,6 +21,8 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
     private String namespace;
     private String className;
 
+    private String options;
+
     private File devModeBaseDir;
 
     @Override
@@ -32,8 +34,8 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
         context.setLanguageVersion(Context.VERSION_1_8);
         scope = new Global(context);
 
-        loadClasspathScript("pl/kjaklik/maven/jsprecompile/scripts/env.js");
-        loadClasspathScript("pl/kjaklik/maven/jsprecompile/scripts/jquery.js");
+        loadClasspathScript("pl/kjaklik/maven/jstprecompile/scripts/env.js");
+        loadClasspathScript("pl/kjaklik/maven/jstprecompile/scripts/jquery.js");
     }
 
     @Override
@@ -62,6 +64,16 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
     }
 
     @Override
+    public String getOptions() {
+        return options;
+    }
+
+    @Override
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    @Override
     public boolean isSupportDevMode() {
         return false;
     }
@@ -75,6 +87,33 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
     public void devCompileGroup(Iterable<File> templates, Writer output) throws IOException {
         throw new IllegalStateException("DevMode not supported!");
     }
+
+    public void compileGroup(Iterable<File> templates, File output) {
+        Writer writer = null;
+
+        try {
+            writer = prepareOutputWriter(output);
+            IOUtils.write(generateNamespaceInitialisation(), writer);
+
+            compileGroup(templates, writer);
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(writer != null) {
+                IOUtils.closeQuietly(writer);
+            }
+        }
+    }
+
+    @Override
+    public void compileGroup(Iterable<File> templates, Writer writer) throws IOException {
+        for(File templateFile : templates) {
+            precompileFile(templateFile, writer);
+            IOUtils.write("\n", writer);
+        }
+    }
+
+    protected abstract void precompileFile(File templateFile, Writer writer) throws IOException;
 
     @Override
     public File getDevModeBaseDir() {
@@ -128,7 +167,7 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
 
         InputStreamReader reader = null;
         try {
-            reader = new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(location));
+            reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(location));
             context.evaluateReader(scope, reader, FilenameUtils.getName(location), 1, null);
 
         } catch(IOException e) {
@@ -143,7 +182,7 @@ public abstract class AbstractTemplateCompiler implements TemplateCompiler {
     protected String readClasspathFile(String location) {
         InputStream stream = null;
         try {
-            stream = this.getClass().getClassLoader().getResourceAsStream(location);
+            stream = getClass().getClassLoader().getResourceAsStream(location);
             return IOUtils.toString(stream);
         } catch(IOException e) {
             throw new RuntimeException("Unable to read file from location " + location, e);

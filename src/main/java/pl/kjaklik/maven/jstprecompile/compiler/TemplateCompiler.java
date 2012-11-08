@@ -1,4 +1,4 @@
-package pl.kjaklik.maven.jsprecompile.compiler;
+package pl.kjaklik.maven.jstprecompile.compiler;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +12,15 @@ public interface TemplateCompiler {
 
     void prepare();
     boolean isPrepared();
+
     String getNamespace();
     void setNamespace(String namespace);
 
     String getClassName();
     void setClassName(String className);
+
+    String getOptions();
+    void setOptions(String options);
 
     boolean isSupportDevMode();
     void setDevModeBaseDir(File baseDir);

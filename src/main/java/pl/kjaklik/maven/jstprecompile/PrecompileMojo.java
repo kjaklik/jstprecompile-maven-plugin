@@ -1,13 +1,13 @@
-package pl.kjaklik.maven.jsprecompile;
+package pl.kjaklik.maven.jstprecompile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import pl.kjaklik.maven.jsprecompile.compiler.TemplateCompiler;
-import pl.kjaklik.maven.jsprecompile.compiler.handlebars.HandlebarsTemplateCompilerImpl;
-import pl.kjaklik.maven.jsprecompile.compiler.hogan.HoganTemplateCompilerImpl;
+import pl.kjaklik.maven.jstprecompile.compiler.HandlebarsTemplateCompilerImpl;
+import pl.kjaklik.maven.jstprecompile.compiler.HoganTemplateCompilerImpl;
+import pl.kjaklik.maven.jstprecompile.compiler.TemplateCompiler;
 
 import java.io.File;
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class PrecompileMojo extends AbstractMojo implements Mojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if(skip) {
-            getLog().info("jsprecompile:precompile skipped!");
+            getLog().info("jstprecompile:precompile skipped!");
         }
         if(force) {
             getLog().info("Compilation will be forced even if groups are up to date");
